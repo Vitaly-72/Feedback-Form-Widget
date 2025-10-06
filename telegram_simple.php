@@ -3,8 +3,8 @@
 header('Access-Control-Allow-Origin: *');
 header('Content-Type: application/json');
 
-$botToken = '8279862179:AAETWj2reSqIPwCAUfRlJN8MKLdiEi6Ewt4';
-$chatId = '-1002724235634';
+$botToken = '{{BOT_TOKEN}}';
+$chatId = '{{CHAT_ID}}';
 
 // Получаем данные
 $input = json_decode(file_get_contents('php://input'), true);
@@ -67,4 +67,5 @@ if ($result) {
 } else {
     echo json_encode(array('success' => false, 'error' => 'Request failed'));
 }
+
 ?>
