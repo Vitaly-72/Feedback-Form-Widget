@@ -451,7 +451,7 @@ const feedbackHTML = `
                 <div class="feedback-checkbox-group">
                     <input type="checkbox" id="feedbackPrivacyPolicy" required>
                     <label for="feedbackPrivacyPolicy">
-                        Я согласен с <a href="" target="_blank">политикой конфиденциальности</a> *
+                        Я согласен с <a href="https://72parad.ru/политика-безопасности" target="_blank">политикой конфиденциальности</a> *
                     </label>
                 </div>
                 <div class="feedback-error-message" id="feedbackPolicyError">Необходимо согласие с политикой конфиденциальности</div>
@@ -479,9 +479,12 @@ function getTelegramHandlerPath() {
         }
     }
     
+    if (currentScript) {
+        const jsPath = currentScript.split('/').slice(0, -1).join('/');
+        return jsPath + '/telegram_simple.php';
+    }
     
-    
-    return 'http://c922785v.beget.tech/telegram_simple.php';
+    return 'telegram_simple.php';
 }
 
 // Функция для получения пути к файловому обработчику (остается без изменений)
@@ -496,9 +499,12 @@ function getFilesHandlerPath() {
         }
     }
     
-   
+    if (currentScript) {
+        const jsPath = currentScript.split('/').slice(0, -1).join('/');
+        return jsPath + '/telegram_files.php';
+    }
     
-    return 'http://c922785v.beget.tech/telegram_files.php';
+    return 'telegram_files.php';
 }
 
 // Функция для получения иконки файла по типу (остается без изменений)
@@ -803,5 +809,4 @@ if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', initFeedbackWidget);
 } else {
     initFeedbackWidget();
-
 }
