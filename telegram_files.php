@@ -3,8 +3,8 @@
 header('Access-Control-Allow-Origin: *');
 header('Content-Type: application/json');
 
-$botToken = '8279862179:AAETWj2reSqIPwCAUfRlJN8MKLdiEi6Ewt4';
-$chatId = '-1002724235634';
+$botToken = '{{BOT_TOKEN}}';
+$chatId = '{{CHAT_ID}}';
 
 // Логируем для отладки
 file_put_contents('files_debug.log', date('Y-m-d H:i:s') . " - Files request started\n", FILE_APPEND);
@@ -131,4 +131,5 @@ if ($sentCount > 0) {
         'sent_files_count' => 0
     ));
 }
+
 ?>
