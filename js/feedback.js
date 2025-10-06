@@ -502,8 +502,8 @@ function initFeedbackFunctionality() {
     // 🔥 НОВЫЙ КОД - Netlify Functions URLs
     // Замените 'your-site-name' на реальное имя вашего Netlify сайта
     const API_BASE_URL = 'https://sparkly-quokka-0db72a.netlify.app/.netlify/functions';
-    const telegramHandlerUrl = `${API_BASE_URL}/telegram-simple.js`;
-    const filesHandlerUrl = `${API_BASE_URL}/telegram-files.js`;
+    const telegramHandlerUrl = `${API_BASE_URL}/telegram-simple`;
+    const filesHandlerUrl = `${API_BASE_URL}/telegram-files`;
 
     console.log('Text handler URL:', telegramHandlerUrl);
     console.log('Files handler URL:', filesHandlerUrl);
