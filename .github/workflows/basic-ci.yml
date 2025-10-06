@@ -1,14 +1,15 @@
-name: CI for Feedback Form Widget
+name: CI Pipeline
 
 on:
   push:
-    branches: [ main, master, develop ]
+    branches: [ main, master ]
   pull_request:
-    branches: [ main, master, develop ]
+    branches: [ main, master ]
 
 jobs:
   test:
     runs-on: ubuntu-latest
+    name: Test on Node.js ${{ matrix.node-version }}
     
     strategy:
       matrix:
@@ -27,13 +28,14 @@ jobs:
     - name: Install dependencies
       run: npm ci
     
-    - name: Run tests with Jest
+    - name: Run tests
       run: npm test
       env:
         CI: true
 
-  type-check:
+  lint-and-build:
     runs-on: ubuntu-latest
+    name: Lint and Build
     
     steps:
     - name: Checkout code
@@ -48,70 +50,18 @@ jobs:
     - name: Install dependencies
       run: npm ci
     
-    - name: TypeScript type check
+    - name: Run TypeScript check
       run: npx tsc --noEmit
-
-  lint:
-    runs-on: ubuntu-latest
-    
-    steps:
-    - name: Checkout code
-      uses: actions/checkout@v4
-    
-    - name: Setup Node.js
-      uses: actions/setup-node@v4
-      with:
-        node-version: '20.x'
-        cache: 'npm'
-    
-    - name: Install dependencies
-      run: npm ci
     
     - name: Run ESLint
       run: npm run lint
-
-  build:
-    runs-on: ubuntu-latest
-    needs: [test, type-check, lint]
     
-    strategy:
-      matrix:
-        node-version: [18.x, 20.x]
-    
-    steps:
-    - name: Checkout code
-      uses: actions/checkout@v4
-    
-    - name: Setup Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v4
-      with:
-        node-version: ${{ matrix.node-version }}
-        cache: 'npm'
-    
-    - name: Install dependencies
-      run: npm ci
-    
-    - name: Build project with Vite
+    - name: Build project
       run: npm run build
     
-    - name: Upload build artifacts
+    - name: Upload build artifact
       uses: actions/upload-artifact@v4
       with:
-        name: feedback-widget-build-${{ matrix.node-version }}
+        name: feedback-widget-build
         path: dist/
-        retention-days: 30
-
-  security:
-    runs-on: ubuntu-latest
-    
-    steps:
-    - name: Checkout code
-      uses: actions/checkout@v4
-    
-    - name: Setup Node.js
-      uses: actions/setup-node@v4
-      with:
-        node-version: '20.x'
-    
-    - name: Audit dependencies
-      run: npm audit --audit-level moderate
+        retention-days: 7
